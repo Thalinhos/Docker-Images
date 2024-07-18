@@ -1,0 +1,3 @@
+docker cp C:\Users\Thalisson\Desktop\metroplan_backup.sql {nome do container}:/dump.sql
+docker exec -it {nome do container} psql -U {teu user} -d {teu database}
+\i dump.sql # para rodar dentro do container
