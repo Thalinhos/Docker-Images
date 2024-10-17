@@ -1,0 +1,11 @@
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - /path/to/data:/pb_data
+      - /path/to/public:/pb_public 
+      - /path/to/hooks:/pb_hooks 

@@ -1,0 +1,38 @@
+cria pocketbase e um user
+
+bloqueia as rotas => crie essa regra que valida se existe ou nao um jwt => @request.auth.id != ""
+
+Verificação para adicionar se o user que recuperou o token esta realmente verificad => @request.auth.id != "" && @request.auth.verified = true
+
+POST => http://localhost:8090/api/collections/users/auth-with-password
+{
+  "identity": "usuario",
+  "password": "senha"
+}
+
+recupera seu token
+RETORNO DO POST => http://localhost:8090/api/collections/users/records
+{
+	"record": {
+		"avatar": "screenshot_17_9TrNBeX23o.png",
+		"collectionId": "_pb_users_auth_",
+		"collectionName": "users",
+		"created": "2024-10-17 16:13:45.527Z",
+		"email": "",
+		"emailVisibility": false,
+		"id": "awd45fcu42qa6mi",
+		"name": "thalinhos",
+		"updated": "2024-10-17 16:14:12.397Z",
+		"username": "thalisson-vieira",
+		"verified": true
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE3MzAzOTM3MzEsImlkIjoiYXdkNDVmY3U0MnFhNm1pIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.Q5irNclGEpu3spdylXWgLP-pxitCOX9WXW5iDlkvgVw"
+}
+
+faça um get agora para
+http://localhost:8090/api/collections/users/records
+
+envia no header um {Authorization: Bearer {seu-token}}
+js =>  headers: {
+      'Authorization': 'Bearer <token>'
+   },
