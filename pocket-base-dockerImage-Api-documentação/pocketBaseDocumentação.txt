@@ -1,3 +1,5 @@
+acesse esse link para iniciar a aplicação web no console admin => http://localhost:8090/_/
+
 cria pocketbase e um user
 
 bloqueia as rotas => crie essa regra que valida se existe ou nao um jwt => @request.auth.id != ""
