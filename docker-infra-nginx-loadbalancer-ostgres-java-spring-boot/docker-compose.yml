@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app1:
+    build: ./app
+    restart: always
+    ports:
+      - "8081:8080"   # mapeia porta 8081 externa para 8080 interna do container
+    depends_on:
+      - db
+    networks:
+      - rede
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/meubanco
+      SPRING_DATASOURCE_USERNAME: meuuser
+      SPRING_DATASOURCE_PASSWORD: minhasenha
+
+  app2:
+    build: ./app
+    restart: always
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db
+    networks:
+      - rede
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/meubanco
+      SPRING_DATASOURCE_USERNAME: meuuser
+      SPRING_DATASOURCE_PASSWORD: minhasenha
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: meubanco
+      POSTGRES_USER: meuuser
+      POSTGRES_PASSWORD: minhasenha
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - rede
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app1
+      - app2
+    networks:
+      - rede
+
+networks:
+  rede:
+
+volumes:
+  postgres_data:
