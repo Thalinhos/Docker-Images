@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app1:
+    build: ./app1
+    networks:
+      - rede
+
+  app2:
+    build: ./app2
+    networks:
+      - rede
+    # sem porta exposta nem proxy pelo nginx
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"           # só expõe porta 80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app1
+    networks:
+      - rede
+
+networks:
+  rede:
