@@ -1,0 +1,15 @@
+services:
+  redis:
+    container_name: redis-stack
+    image: 'redis/redis-stack:latest'
+    restart: unless-stopped
+    #command: ["redis-server", "/etc/redis/redis.conf"]
+    environment:
+      REDIS_ARGS: "--requirepass root"
+    volumes:
+      - ./redis-data:/data
+      #- ./conf/users.acl:/etc/redis/users.acl:z
+      #- ./conf/redis.conf:/etc/redis/redis.conf:z
+    ports:
+      - "6379:6379" #redis-server
+      - "8001:8001" #RedisInsight
